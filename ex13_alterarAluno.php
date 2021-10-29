@@ -1,3 +1,38 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nome = $_POST["nome"];
+    $matricula = $_POST["matricula"];
+    $dtNasc = $_POST["dtNasc"];
+    $email = $_POST["email"];
+    $cpf = $_POST["cpf"];
+    $fone = $_POST["telefone"];
+    $endereco = $_POST["endereco"];
+    $cidade = $_POST["cidade"];
+    $estado = $_POST["estado"];
+    $cep = $_POST["cep"];
+	$colunaDados = array();
+	
+    $arquivoAlunoIn = fopen("alunosNovos.txt", "r") or die("Erro na abertura do arquivo");
+    while (!feof($arquivoAlunoIn)) {
+        $linhas[] = fgets($arquivoAlunoIn);
+    }
+    fclose($arquivoAlunoIn);
+
+    $arquivoAlunoOut = fopen("alunosNovos.txt", "w") or die("Erro na abertura do arquivo");
+    $x = 0;
+
+    foreach ($linhas as $linha) {
+        $colunaDados = explode(";", $linha);
+        if ($colunaDados[1] == $matricula) {
+            $txt = "$nome;$matricula;$dtNasc;$email;$cpf;$fone;$endereco;$cidade;$estado;$cep\n";
+        } else {
+            $txt = $linha;
+        }
+        fwrite($arquivoAlunoOut, $txt);
+    }
+    fclose($arquivoAlunoOut);
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,21 +40,11 @@
 <body>
 <h1>Alterar Aluno</h1>
 <br>
-
 <br>
-<form action="ex13_inserirAlunoArquivoAppend.php" method=POST>
-    Matricula: <input type=text name="matricula"> <br>
-    nome: <input type=text name="nome" value='<?php echo "jose da silva"; ?>'> <br>
-    email: <input type=text name="email"> <br>
-    data nascimento: <input type=text name="dtNasc"> <br>
-    cpf: <input type=text name="cpf"> <br>
-    telefone:<input type=text name="telefone"> <br>
-    endereço: <input type=text name="endereco"> <br>
-    cidade: <input type=text name="cidade"> <br>
-    estado: <input type=text name="estado"> <br>
-    cep: <input type=text name="cep"> <br>
+<form action="ex13_buscarAlunoNoArquivo.php" method="GET">
+    Matricula: <input type=text name="matricula">
     <br><br>
-    <input type="submit" value="Inserir">
+    <input type="submit" value="Alterar">
 </form>
 <br>
 </body>
