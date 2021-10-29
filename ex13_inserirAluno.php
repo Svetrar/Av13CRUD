@@ -10,14 +10,15 @@
         $cidade = $_POST["cidade"];
         $estado = $_POST["estado"];
         $cep = $_POST["cep"];
-//  Vou escrever os dados do formulário em um arquivo de dados
-        $arquivoAluno = fopen("alunoNovo.txt", "w");
-        $txt = "nome;matricula;data Nascimento;email;cpf;telefone;endereco;cidade;estado;cep\n";
-        fwrite($arquivoAluno,$txt);
+
+        if (!file_exists("alunosNovos.txt")) {
+            $cabecalho = "nome;matricula;data Nascimento;email;cpf;telefone;endereco;cidade;estado;cep\n";
+            file_put_contents("alunosNovos.txt", $cabecalho);
+        }
         $txt = $nome . ";" . $matricula . ";" . $dtNasc . ";" . $email . ";" . $cpf . ";" . $fone;
         $txt = $txt . ";" . $endereco . ";" . $cidade . ";" . $estado . ";" . $cep . "\n";
-        fwrite($arquivoAluno,$txt);
-        fclose($arquivoAluno);
+        file_put_contents("alunosNovos.txt", $txt, FILE_APPEND);
+
     }
 ?>
 <!DOCTYPE html>
@@ -27,11 +28,11 @@
 <body>
 <h1>Inserir Aluno</h1>
 <br>
-<a href="ex13_inserirAluno.php">Inserir Aluno</a><br>
-<a href="ex13_alterarAluno.php">Alterar Aluno</a><br>
-<a href="ex13_listarAlunos.php">Listar Alunos</a><br>
-<a href="ex13_excluirAluno.php">Excluir Aluno</a><br>
-<a href="ex13_detalheAluno.php">Detalhe de Aluno</a><br>
+	<a href="ex13_inserirAluno.php">Inserir</a><br>
+	<a href="ex13_alterarAluno.php">Alterar</a><br>
+	<a href="ex13_listarAlunos.php">Listar</a><br>
+	<a href="ex13_excluirArquivo.php">Excluir</a><br>
+
 <br>
 <form action="ex13_inserirAluno.php" method=POST>
     Matricula: <input type=text name="matricula"> <br>
