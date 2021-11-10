@@ -1,34 +1,43 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") 
+{
+	
     $nome = $_POST["nome"];
     $matricula = $_POST["matricula"];
-    $dtNasc = $_POST["dtNasc"];
-    $email = $_POST["email"];
-    $cpf = $_POST["cpf"];
-    $fone = $_POST["telefone"];
-    $endereco = $_POST["endereco"];
-    $cidade = $_POST["cidade"];
-    $estado = $_POST["estado"];
-    $cep = $_POST["cep"];
-	$colunaDados = array();
+    	
+	if (file_exists("alunosNovos.txt"))
+	{
+		$arquivoAlunoIn = fopen("alunosNovos.txt", "r") or die("Erro na abertura do arquivo");
+		$colunaDados = array();
+		$e=0;
 
-    $arquivoAlunoIn = fopen("alunosNovos.txt", "r") or die("Erro na abertura do arquivo");
-    while (!feof($arquivoAlunoIn)) {
-        $linhas[] = fgets($arquivoAlunoIn);
-    }
-    fclose($arquivoAlunoIn);
+		while (!feof($arquivoAlunoIn)) {
+			$linhas[$e] = fgets($arquivoAlunoIn);
+			$colunaDados = explode(";", $linhas[$x]);
+			
+			if ($colunaDados[1] == $matricula)
+                {
+                    $aux = $e;
+                }
+                $e++;
+		}
+		fclose($arquivoAlunoIn);
 
-    $arquivoAlunoOut = fopen("alunosNovos.txt", "w") or die("Erro na abertura do arquivo");
-
-    foreach ($linhas as $linha) {
-        $colunaDados = explode(";", $linha);
-        if ($colunaDados[1] == $matricula) 
-		{
-            $txt = "";
-        } 
-        fwrite($arquivoAlunoOut, $txt);
-    }
-    fclose($arquivoAlunoOut);
+		$arquivoAlunoOut = fopen("alunosNovos.txt", "w") or die("Erro na abertura do arquivo");
+		$coluna=0;
+		$colunaDados = array();
+		
+		for ($coluna; $coluna<=$e; $oluna++)
+			{
+				if ($coluna == $aux)
+				{
+					$e++;
+				}
+				fwrite($arquivoAlunoOut,$linhas[$colunas]);
+			}
+		fclose($arquivoAluno);
+	}
 }
 ?>
 <!DOCTYPE html>
@@ -40,6 +49,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <br>
 <br>
 <form action="ex13_excluirAlunoNoArquivo.php" method="GET">
+<br>
+	<a href="ex13_inserirAluno.php">Inserir</a><br>
+	<a href="ex13_alterarAluno.php">Alterar</a><br>
+	<a href="ex13_listarAlunos.php">Listar</a><br>
+	<a href="ex13_excluirArquivo.php">Excluir</a><br>
+<br>
     Matricula: <input type=text name="matricula">
     <br><br>
     <input type="submit" value="Excluir">
