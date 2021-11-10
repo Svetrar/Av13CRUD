@@ -1,14 +1,17 @@
 <?php
     $matricula = "";
     $linhas = array();
-    if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    if ($_SERVER["REQUEST_METHOD"] == "GET") 
+	{
         $matricula = $_GET["matricula"];
     }
+	
     $arquivoAluno = fopen("alunosNovos.txt", "r") or die("Erro na abertura do arquivo");
     $cabecalho =  fgets($arquivoAluno);
     $x = 0;
     $colunaDados = array();
     $achei = false;
+	
     while (!feof($arquivoAluno)) {
         $linhas[] = fgets($arquivoAluno);
         echo $linhas[$x];
