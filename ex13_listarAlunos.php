@@ -5,11 +5,11 @@
     $cabecalho =  fgets($arquivoAluno);
     $colunas = explode(";", $cabecalho);
 	
-    while (!feof($arquivoAluno)) 
-	{
-        $linhas[] = fgets($arquivoAluno);
+    while (!feof($arquivoAluno)) {
+        	
+	    $linhas[] = fgets($arquivoAluno);
     }
-    fclose($arquivoAluno);
+    	fclose($arquivoAluno);
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,7 +25,8 @@
 <br><br>
 <table>
         <?php
-        foreach ($linhas as $linha) {
+        foreach ($linhas as $linha) 
+	{
             echo "<tr>";
             $colunas1 = array();
             $colunas1 = explode(";", $linha);
