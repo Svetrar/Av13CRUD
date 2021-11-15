@@ -13,7 +13,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$colunaDados = array();
 	
     $arquivoAlunoIn = fopen("alunosNovos.txt", "r") or die("Erro na abertura do arquivo");
-    while (!feof($arquivoAlunoIn)) {
+    while (!feof($arquivoAlunoIn)) 
+    {
         $linhas[] = fgets($arquivoAlunoIn);
     }
     fclose($arquivoAlunoIn);
@@ -23,7 +24,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     foreach ($linhas as $linha) {
         $colunaDados = explode(";", $linha);
-        if ($colunaDados[1] == $matricula) {
+	    
+        if ($colunaDados[1] == $matricula) 
+	{
             $txt = "$nome;$matricula;$dtNasc;$email;$cpf;$fone;$endereco;$cidade;$estado;$cep\n";
         } else {
             $txt = $linha;
