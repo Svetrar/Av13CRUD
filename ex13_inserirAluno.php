@@ -1,5 +1,6 @@
 <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") 
+    {
         $nome = $_POST["nome"];
         $matricula = $_POST["matricula"];
         $dtNasc = $_POST["dtNasc"];
@@ -11,10 +12,12 @@
         $estado = $_POST["estado"];
         $cep = $_POST["cep"];
 
-        if (!file_exists("alunosNovos.txt")) {
+        if (!file_exists("alunosNovos.txt")) 
+	{
             $cabecalho = "nome;matricula;data Nascimento;email;cpf;telefone;endereco;cidade;estado;cep\n";
             file_put_contents("alunosNovos.txt", $cabecalho);
         }
+	    
         $txt = $nome . ";" . $matricula . ";" . $dtNasc . ";" . $email . ";" . $cpf . ";" . $fone;
         $txt = $txt . ";" . $endereco . ";" . $cidade . ";" . $estado . ";" . $cep . "\n";
         file_put_contents("alunosNovos.txt", $txt, FILE_APPEND);
@@ -35,6 +38,7 @@
 
 <br>
 <form action="ex13_inserirAluno.php" method=POST>
+	
     Matricula: <input type=text name="matricula"> <br>
     nome: <input type=text name="nome"> <br>
     email: <input type=text name="email"> <br>
@@ -47,7 +51,9 @@
     cep: <input type=text name="cep"> <br>
     <br><br>
     <input type="submit" value="Inserir">
+	
 </form>
+	
 <br>
 </body>
 </html>
